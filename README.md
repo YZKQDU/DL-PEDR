@@ -3,8 +3,8 @@
 
 
 -  C++ / Python.
--  Writer at [sspai](https://sspai.com/u/aw0luepf/posts)
--  [Blogger](https://haysc.tech)
+-  Writer at [sspai](https:)
+-  [Blogger](https:)
 -  Sailing / Kayak / Scuba Diving / Windsurfing / Table Tennis / Cycling
 -  Boxing / Tai Chi
 - ♟ Chinese Chess / Chess 
