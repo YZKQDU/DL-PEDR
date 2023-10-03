@@ -18,7 +18,7 @@ class CSI(object):
         self.csi_data = self.read_csi_data()
         self.raw_phase = self.phase_caculate()
         self.amplitude = self.amplitude_caculate()
-        self.unwraped_phase = self.phase_unwrap() #相位角
+        self.unwraped_phase = self.phase_unwrap() 
         self.atf_lpf = self.lpf_filter()
         self.finger_print = self.get_fingerprinting_list()
         self.amplitude_print = self.get_amplitude_list()
@@ -47,8 +47,7 @@ class CSI(object):
     def read_csi_data(self):
         file_name = self.filename
         data_stac = []
-        triangle = np.array([1,3,6])   #三角？
-        #读取dat文件内容
+        triangle = np.array([1,3,6]) 
         with open(file_name,'rb') as f:
             buff = f.read()
             count = 0
@@ -91,7 +90,6 @@ class CSI(object):
         calc_len = (30* (nrx * ntx * 8 * 2 + 3)+ 7) // 8
         payload = array[20:]
         if len_sum != calc_len:
-            print("数据发现错误！")
             exit(0)
 
         result['timestamp_low'] = timestamp_low
@@ -157,10 +155,6 @@ class CSI(object):
         return ret
 
     def phase_caculate(self,x=1,y=1):
-        """
-        输入：帧信息数据集合
-        输出：相位集合
-        """
         frame_phase_list = []
         for i in self.csi_data:
             csi_matrix = i['csi'][x-1][y-1]
@@ -169,10 +163,6 @@ class CSI(object):
         return frame_phase_list
 
     def amplitude_caculate(self,x=1,y=1):
-        """
-        输入：帧信息数据集合
-        输出：幅度集合
-        """
         frame_amplitude_list = []
         for i in self.csi_data:
             csi_matrix = i['csi'][x-1][y-1]
@@ -181,20 +171,12 @@ class CSI(object):
         return frame_amplitude_list
 
     def phase_unwrap(self):
-        """
-        输入：未解缠绕的帧的相位集合
-        输出：解缠绕后的帧的相位结合
-        """
         unwraped_phase_list = list()
         for i in self.raw_phase:
             unwraped_phase_list.append(np.unwrap(i))
         return unwraped_phase_list
 
     def lpf_filter(self):
-        """
-        输入：各个帧的相位集合组成的集合，以及子载波序列[-28,-26,……]
-        输出：符合条件的帧的相位集合组成的集合
-        """
         fg_frame = []
         frame_len = len(self.unwraped_phase)
         for i in range(frame_len):
@@ -209,10 +191,6 @@ class CSI(object):
         return fg_frame
 
     def get_fingerprinting_list(self):
-        """
-        输入：归一化后的帧的子载波相位集合
-        输出：将λ带入后的子载波相位集合
-        """
         pi = math.pi
         frame_finger_list = list()
         for i in self.atf_lpf:
@@ -228,10 +206,6 @@ class CSI(object):
         return frame_finger_list
 
     def get_amplitude_list(self):
-        """
-        输入：子载波振幅集合
-        输出：去除平均值的子载波振幅集合
-        """
         frame_amplitude_list= list()
         for i in self.amplitude:
             amplitude_list = list()
