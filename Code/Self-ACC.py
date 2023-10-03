@@ -119,9 +119,7 @@ for train_index, test_index in kfold.split(input11):
                   )
     H = model.fit(X_train,Y_train,validation_data=(X_test,Y_test),batch_size=50,
                                   epochs=1,
-                                  # validation_steps=50,
                                   verbose=1,
-                                  # callbacks=[cp_callback],
                                   shuffle=True
                                   )
 
